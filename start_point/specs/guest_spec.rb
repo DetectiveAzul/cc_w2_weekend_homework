@@ -15,6 +15,7 @@ class TestGuest < MiniTest::Test
 
   def test_getters()
     assert_equal("Raquel",@guest06.name())
+    assert_equal(30, @guest06.cash())
   end
 
 end

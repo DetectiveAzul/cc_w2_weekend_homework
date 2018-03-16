@@ -1,12 +1,13 @@
 class Room
   attr_reader :number, :size, :entry_fee
-  attr_accessor :occupants, :playlist
+  attr_accessor :occupants, :playlist, :till
   def initialize(number, size, playlist=[])
     @number = number
     @size = size
     @playlist = playlist
     @occupants = []
     @entry_fee = 15
+    @till = 0
   end
 
   def add_guest_to_occupants(guest)
