@@ -1,7 +1,7 @@
 class Till
   attr_accessor :cash
-  def initialize()
-    @cash = 0
+  def initialize(cash = 0)
+    @cash = cash
   end
 
   def insert_money(amount)
