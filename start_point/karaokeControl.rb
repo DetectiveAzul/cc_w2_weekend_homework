@@ -2,7 +2,6 @@ require_relative 'room'
 require_relative 'song'
 require_relative 'till'
 require_relative 'guest'
-require 'pry'
 
 class KaraokeControl
   attr_accessor :rooms, :playlists, :guests

@@ -34,8 +34,6 @@ loop do
       karaoke.display_playlists()
     when "g"
       karaoke.display_guests()
-    when "a"
-      karaoke.allocate_guests()
     when "c"
       karaoke.control_creation_room()
     when "k"
