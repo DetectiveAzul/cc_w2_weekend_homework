@@ -10,8 +10,21 @@ class Room
     @till = 0
   end
 
+  def enough_space?()
+    return @occupants.count < @size
+  end
+
   def add_guest_to_occupants(guest)
-    @occupants << guest
+    if enough_space?() && guest.pay_entry_fee(@entry_fee)
+      @occupants << guest
+      add_money_to_till(@entry_fee)
+      return true
+    end
+    return false
+  end
+
+  def add_money_to_till(amount)
+    @till += amount
   end
 
   def find_occupant_by_name(occupant_name)

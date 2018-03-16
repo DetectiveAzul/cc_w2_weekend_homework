@@ -25,7 +25,7 @@ class TestRoom < MiniTest::Test
     @guest03 = Guest.new("Laia", 30)
     @guest04 = Guest.new("Rubén", 30)
     @guest05 = Guest.new("Pedro", 30)
-    @guest05 = Guest.new("Poor-man Mcboatface", 5)
+    @guest06 = Guest.new("Poor-man Mcboatface", 5)
 
     @disney_room = Room.new(1, 4, disney_playlist)
     @rock_room = Room.new(2, 4, rock_playlist)
@@ -56,6 +56,32 @@ class TestRoom < MiniTest::Test
     @disney_room.add_guest_to_occupants(@guest01)
     @disney_room.add_guest_to_occupants(@guest02)
     assert_equal(2, @disney_room.occupants.count())
+  end
+
+  def test_add_money_to_till()
+    result = @disney_room.add_money_to_till(100)
+    assert_equal(100, @disney_room.till)
+  end
+
+  def test_add_guest_to_occupants__not_enough_money()
+    @disney_room.add_guest_to_occupants(@guest06)
+    assert_equal(0, @disney_room.till)
+    assert_equal(0, @disney_room.occupants.count)
+    assert_equal(5, @guest06.cash)
+    assert_equal(false, @disney_room.add_guest_to_occupants(@guest06))
+  end
+
+  def test_add_guest_to_occupants__not_enough_size()
+    @disney_room.add_guest_to_occupants(@guest01)
+    @disney_room.add_guest_to_occupants(@guest02)
+    @disney_room.add_guest_to_occupants(@guest03)
+    @disney_room.add_guest_to_occupants(@guest04)
+    result = @disney_room.add_guest_to_occupants(@guest05)
+
+    assert_equal(false, result)
+    assert_equal(60, @disney_room.till)
+    assert_equal(4, @disney_room.occupants.count)
+    assert_equal(30, @guest05.cash)
   end
 
   def test_remove_guest_from_occupants()

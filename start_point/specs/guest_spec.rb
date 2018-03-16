@@ -18,4 +18,20 @@ class TestGuest < MiniTest::Test
     assert_equal(30, @guest06.cash())
   end
 
+  def test_enough_money?()
+    assert_equal(true, @guest06.enough_money?(30))
+  end
+
+  def test_enough_money__returns_false()
+    assert_equal(false, @guest06.enough_money?(31))
+  end
+
+  def test_pay_entry_fee()
+    assert_equal(true, @guest06.pay_entry_fee(30))
+  end
+
+  def test_pay_entry_fee__returns_false()
+    assert_equal(false, @guest06.pay_entry_fee(40))
+  end
+  
 end
