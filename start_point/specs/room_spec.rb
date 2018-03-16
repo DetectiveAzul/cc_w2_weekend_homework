@@ -3,22 +3,17 @@ require 'minitest/rg'
 require_relative '../room'
 require_relative '../song'
 require_relative '../guest'
+require_relative '../till'
 
 class TestRoom < MiniTest::Test
 
   def setup()
-    song01 = Song.new("You Give Love a Bad Name")
-    song02 = Song.new("Rock You Like a Hurricane")
-    song03 = Song.new("Put a Ring on It")
-    song04 = Song.new("Bad Romance")
-    song05 = Song.new("A Whole New World")
-    song06 = Song.new("A Friend Like Me")
+    song01 = Song.new("A Whole New World")
+    song02 = Song.new("A Friend Like Me")
 
-    @song07 = Song.new("Mazinger Z")
+    @song03 = Song.new("Mazinger Z")
 
-    rock_playlist = [song01, song02]
-    lady_gaga_playlist = [song03, song04]
-    disney_playlist = [song05, song06]
+    disney_playlist = [song01, song02]
 
     @guest01 = Guest.new("Jaime", 30)
     @guest02 = Guest.new("Ceci", 30)
@@ -27,17 +22,17 @@ class TestRoom < MiniTest::Test
     @guest05 = Guest.new("Pedro", 30)
     @guest06 = Guest.new("Poor-man Mcboatface", 5)
 
-    @disney_room = Room.new(1, 4, disney_playlist)
-    @rock_room = Room.new(2, 4, rock_playlist)
-    @lady_gaga = Room.new(3, 4, lady_gaga_playlist)
+    disney_till = Till.new()
+    @disney_room = Room.new(1, 4, disney_till, disney_playlist)
+
   end
 
   def test_get_room_name()
-    assert_equal(2, @rock_room.number())
+    assert_equal(1, @disney_room.number())
   end
 
   def test_get_room_occupant_count()
-    assert_equal(0, @lady_gaga.occupants.count())
+    assert_equal(0, @disney_room.occupants.count())
   end
 
   def test_get_room_play_list()
@@ -60,14 +55,14 @@ class TestRoom < MiniTest::Test
 
   def test_add_money_to_till()
     result = @disney_room.add_money_to_till(100)
-    assert_equal(100, @disney_room.till)
+    assert_equal(100, @disney_room.till.cash())
   end
 
   def test_add_guest_to_occupants__not_enough_money()
     @disney_room.add_guest_to_occupants(@guest06)
-    assert_equal(0, @disney_room.till)
-    assert_equal(0, @disney_room.occupants.count)
-    assert_equal(5, @guest06.cash)
+    assert_equal(0, @disney_room.till.cash())
+    assert_equal(0, @disney_room.occupants.count())
+    assert_equal(5, @guest06.cash())
     assert_equal(false, @disney_room.add_guest_to_occupants(@guest06))
   end
 
@@ -79,9 +74,9 @@ class TestRoom < MiniTest::Test
     result = @disney_room.add_guest_to_occupants(@guest05)
 
     assert_equal(false, result)
-    assert_equal(60, @disney_room.till)
-    assert_equal(4, @disney_room.occupants.count)
-    assert_equal(30, @guest05.cash)
+    assert_equal(60, @disney_room.till.cash())
+    assert_equal(4, @disney_room.occupants.count())
+    assert_equal(30, @guest05.cash())
   end
 
   def test_remove_guest_from_occupants()
@@ -109,7 +104,7 @@ class TestRoom < MiniTest::Test
   end
 
   def test_add_song_to_playlist()
-    @disney_room.add_song_to_playlist(@song07)
+    @disney_room.add_song_to_playlist(@song03)
     assert_equal(3, @disney_room.playlist.count())
     assert_equal("Mazinger Z", @disney_room.playlist.last.title())
   end

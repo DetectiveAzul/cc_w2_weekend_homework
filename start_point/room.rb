@@ -1,13 +1,13 @@
 class Room
   attr_reader :number, :size, :entry_fee
   attr_accessor :occupants, :playlist, :till
-  def initialize(number, size, playlist=[])
+  def initialize(number, size, till, playlist=[])
     @number = number
     @size = size
     @playlist = playlist
     @occupants = []
     @entry_fee = 15
-    @till = 0
+    @till = till
   end
 
   def enough_space?()
@@ -24,7 +24,7 @@ class Room
   end
 
   def add_money_to_till(amount)
-    @till += amount
+    @till.insert_money(amount)
   end
 
   def find_occupant_by_name(occupant_name)
