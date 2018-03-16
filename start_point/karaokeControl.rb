@@ -105,7 +105,9 @@ class KaraokeControl
       puts "Playing now song: #{room.playlist.first.title}"
       puts "Size: #{room.size}"
       puts "Till: #{room.till.cash}"
-      puts "Number of Occupants: #{room.occupants.count}"
+      occupants_string = []
+      room.occupants.each { |occupant| occupants_string << occupant.name }
+      puts "Occupants: #{occupants_string.join(", ")}"
       puts "Entry Fee: #{room.entry_fee}"
     else
       puts "That room does not exist"

@@ -16,10 +16,13 @@ loop do
   puts "------------------------------"
   puts "add new (p)laylist"
   puts "check (l)ist of playlists created"
+  puts "delete a playlist <work in progress>"
   puts "check (g)uests in waiting room"
+  puts "(a)llocate guests in karaoke room <work in progress>"
   puts "(c)reate a new karaoke room"
   puts "check list of (k)araoke rooms"
   puts "(d)isplay karaoke room information"
+  puts "delete a room <work in progress>"
   puts "(!!!) ends the application"
   puts "------------------------------"
   puts "Please type your option and press RETURN"
@@ -31,6 +34,8 @@ loop do
       karaoke.display_playlists()
     when "g"
       karaoke.display_guests()
+    when "a"
+      karaoke.allocate_guests()
     when "c"
       karaoke.control_creation_room()
     when "k"
