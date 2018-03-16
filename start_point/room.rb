@@ -1,10 +1,12 @@
 class Room
-  attr_reader :number
+  attr_reader :number, :size, :entry_fee
   attr_accessor :occupants, :playlist
-  def initialize(number, playlist=[])
+  def initialize(number, size, playlist=[])
     @number = number
+    @size = size
     @playlist = playlist
     @occupants = []
+    @entry_fee = 15
   end
 
   def add_guest_to_occupants(guest)
@@ -32,6 +34,16 @@ class Room
     song = find_song_by_title(song) if song.class == String
     @playlist.delete(song)
   end
+
+  def get_actual_song_being_played()
+    return @playlist.first
+  end
+
+  def switch_to_next_song()
+    first_song = @playlist.shift
+    @playlist << first_song
+  end
+
 
 
 end

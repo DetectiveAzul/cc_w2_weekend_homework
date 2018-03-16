@@ -20,14 +20,16 @@ class TestRoom < MiniTest::Test
     lady_gaga_playlist = [song03, song04]
     disney_playlist = [song05, song06]
 
-    @guest01 = Guest.new("Jaime")
-    @guest02 = Guest.new("Ceci")
-    @guest03 = Guest.new("Laia")
-    @guest04 = Guest.new("Rubén")
+    @guest01 = Guest.new("Jaime", 30)
+    @guest02 = Guest.new("Ceci", 30)
+    @guest03 = Guest.new("Laia", 30)
+    @guest04 = Guest.new("Rubén", 30)
+    @guest05 = Guest.new("Pedro", 30)
+    @guest05 = Guest.new("Poor-man Mcboatface", 5)
 
-    @disney_room = Room.new(1, disney_playlist)
-    @rock_room = Room.new(2, rock_playlist)
-    @lady_gaga = Room.new(3, lady_gaga_playlist)
+    @disney_room = Room.new(1, 4, disney_playlist)
+    @rock_room = Room.new(2, 4, rock_playlist)
+    @lady_gaga = Room.new(3, 4, lady_gaga_playlist)
   end
 
   def test_get_room_name()
@@ -40,6 +42,14 @@ class TestRoom < MiniTest::Test
 
   def test_get_room_play_list()
     assert_equal("A Friend Like Me", @disney_room.playlist.last.title())
+  end
+
+  def test_get_room_size()
+    assert_equal(4, @disney_room.size())
+  end
+
+  def test_get_room_fee()
+    assert_equal(15, @disney_room.entry_fee())
   end
 
   def test_add_guest_to_occupants()
@@ -93,4 +103,15 @@ class TestRoom < MiniTest::Test
     assert_equal(1, @disney_room.playlist.count())
   end
 
+  def test_get_actual_song_being_played()
+    result = @disney_room.get_actual_song_being_played()
+    assert_equal("A Whole New World", result.title)
+  end
+
+  def test_switch_to_next_song()
+    assert_equal("A Whole New World", @disney_room.playlist.first.title())
+    @disney_room.switch_to_next_song()
+    result = @disney_room.get_actual_song_being_played()
+    assert_equal("A Friend Like Me", result.title())
+  end
 end

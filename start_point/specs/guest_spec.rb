@@ -5,12 +5,12 @@ require_relative '../guest'
 class TestGuest < MiniTest::Test
 
   def setup()
-    @guest01 = Guest.new("Jaime")
-    @guest02 = Guest.new("Ceci")
-    @guest03 = Guest.new("Laia")
-    @guest04 = Guest.new("Rubén")
-    @guest05 = Guest.new("Sara")
-    @guest06 = Guest.new("Raquel")
+    @guest01 = Guest.new("Jaime", 30)
+    @guest02 = Guest.new("Ceci", 30)
+    @guest03 = Guest.new("Laia", 30)
+    @guest04 = Guest.new("Rubén", 30)
+    @guest05 = Guest.new("Sara", 30)
+    @guest06 = Guest.new("Raquel", 30)
   end
 
   def test_getters()
